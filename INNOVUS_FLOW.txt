@@ -1,0 +1,77 @@
+============================================================
+  I2C Master Top — Innovus Place & Route Flow
+  Tower TS18SL 0.18um, Die: 1799.84 x 1799.84 um
+============================================================
+
+--- ON THE REMOTE SERVER (vlsi-ria87) ---
+
+1. Open VNC / connect SSH, then start a bash shell:
+   bash
+
+2. Set display and launch Innovus:
+   export DISPLAY=:31
+   cd ~/Desktop/khaled/des/innovus
+   innovus &
+
+--- INSIDE INNOVUS (TCL CONSOLE) ---
+
+3. Load design settings:
+   source i2c.globals
+
+4. Import design (reads top.v, top.io, mmmc.view, LEF files):
+   init_design
+
+5. Floorplan + power rings + power stripes:
+   source floorplan.tcl
+
+6. Place standard cells:
+   placeDesign
+
+7. Clock Tree Synthesis (CTS):
+   source cts.tcl
+   (inserts clock buffers, balances clock skew, then runs post-CTS timing opt)
+
+8. Route all nets:
+   setNanoRouteMode -routeWithTimingDriven false -routeWithSiDriven false
+   routeDesign
+   (timing slack is +0.127ns so we can trade timing freedom for DRC quality)
+
+   DO NOT run optDesign -postRoute after routeDesign.
+
+9. Run final verification:
+    verify_drc
+    verify_connectivity
+
+11. Save the design database:
+    saveDesign ./results/i2c_top_final.enc
+
+12. Export GDSII:
+    streamOut ./results/i2c_top.gds \
+        -mapFile /users/iit/cadence/tsl018b/gds/tsl18_6lm.layermap \
+        -libName tsl18fs120 \
+        -units 1000 \
+        -mode ALL
+
+13. Export final netlist:
+    saveNetlist ./results/i2c_top_final.v
+
+============================================================
+  NOTES
+============================================================
+- Git pull before starting if files were changed on Mac:
+    cd ~/Desktop/khaled
+    git pull origin master
+
+- Die size was reduced from 4980 x 4980 um to 1588 x 1588 um
+  by removing 2 signal pads (arst_i, wb_inta_o) and 4 decap pairs.
+
+- Total pads per side: 10 (N), 10 (E), 11 (S), 10 (W)
+  Plus 4 corner pads (Pcornerur, Pcornerlr, Pcornerll, Pcornerul)
+
+- Key files:
+    top.v        — pad ring netlist
+    top.io       — pad placement order
+    floorplan.tcl — die size + power planning
+    i2c.globals  — Innovus import settings
+    mmmc.view    — timing corners
+============================================================

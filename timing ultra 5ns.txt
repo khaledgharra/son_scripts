@@ -1,0 +1,75 @@
+****************************************
+Report : timing
+        -path full
+        -delay max
+        -max_paths 1
+        -sort_by group
+Design : i2c_master_top
+Version: U-2022.12
+Date   : Wed Jun 17 21:51:02 2026
+****************************************
+
+Operating Conditions: tsl18fs120_typ   Library: tsl18fs120_typ
+Wire Load Model Mode: enclosed
+
+  Startpoint: byte_controller/bit_controller/filter_cnt_reg[1]
+              (rising edge-triggered flip-flop clocked by wb_clk_i)
+  Endpoint: byte_controller/bit_controller/filter_cnt_reg[13]
+            (rising edge-triggered flip-flop clocked by wb_clk_i)
+  Path Group: wb_clk_i
+  Path Type: max
+
+  Des/Clust/Port     Wire Load Model       Library
+  ------------------------------------------------
+  i2c_master_top     4000                  tsl18fs120_typ
+
+  Point                                                   Incr       Path
+  --------------------------------------------------------------------------
+  clock wb_clk_i (rise edge)                              0.00       0.00
+  clock network delay (ideal)                             0.00       0.00
+  byte_controller/bit_controller/filter_cnt_reg[1]/CP (dfcrq1)
+                                                          0.00       0.00 r
+  byte_controller/bit_controller/filter_cnt_reg[1]/Q (dfcrq1)
+                                                          0.32       0.32 f
+  U552/ZN (nr03d1)                                        0.33       0.65 r
+  U546/ZN (nd02d1)                                        0.16       0.81 f
+  U595/ZN (nr02d0)                                        0.22       1.03 r
+  U591/ZN (inv0d0)                                        0.14       1.17 f
+  U592/ZN (nr02d0)                                        0.21       1.38 r
+  U589/ZN (inv0d0)                                        0.14       1.52 f
+  U590/ZN (nr02d0)                                        0.21       1.73 r
+  U587/ZN (inv0d0)                                        0.15       1.88 f
+  U541/ZN (nr02d1)                                        0.13       2.01 r
+  U584/ZN (inv0d0)                                        0.12       2.13 f
+  U537/ZN (nr02d0)                                        0.21       2.34 r
+  U585/ZN (inv0d0)                                        0.15       2.49 f
+  U545/ZN (nr02d1)                                        0.13       2.62 r
+  U581/ZN (inv0d0)                                        0.12       2.74 f
+  U536/ZN (nr02d0)                                        0.21       2.95 r
+  U583/ZN (inv0d0)                                        0.15       3.10 f
+  U544/ZN (nr02d1)                                        0.13       3.24 r
+  U582/ZN (inv0d0)                                        0.13       3.37 f
+  U672/ZN (nr02d1)                                        0.13       3.49 r
+  U656/ZN (inv0d0)                                        0.15       3.64 f
+  U543/ZN (nr02d2)                                        0.29       3.93 r
+  U673/ZN (inv0d1)                                        0.18       4.11 f
+  U540/ZN (nr02d0)                                        0.28       4.39 r
+  U539/ZN (nd02d2)                                        0.27       4.66 f
+  U851/ZN (oai22d1)                                       0.22       4.88 r
+  byte_controller/bit_controller/filter_cnt_reg[13]/D (dfcrq1)
+                                                          0.00       4.88 r
+  data arrival time                                                  4.88
+
+  clock wb_clk_i (rise edge)                              5.00       5.00
+  clock network delay (ideal)                             0.00       5.00
+  byte_controller/bit_controller/filter_cnt_reg[13]/CP (dfcrq1)
+                                                          0.00       5.00 r
+  library setup time                                     -0.11       4.89
+  data required time                                                 4.89
+  --------------------------------------------------------------------------
+  data required time                                                 4.89
+  data arrival time                                                 -4.88
+  --------------------------------------------------------------------------
+  slack (MET)                                                        0.01
+
+

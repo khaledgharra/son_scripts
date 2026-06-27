@@ -1,0 +1,42 @@
+// LEC dofile for i2c_master_top
+// Golden  = RTL source
+// Revised = synthesized netlist (i2c_master_top_syn_lec.v)
+
+set log file out.log -replace
+set compare effort low
+
+// Technology library
+read library -Both -Replace -sensitive -Statetable -Liberty \
+    /tools/kits/tower/PDK_TS18SL/FS120_STD_Cells_0_18um_2005_12/DW_TOWER_tsl18fs120/2005.12/synopsys/2004.12/models/tsl18fs120_typ.lib
+
+// Golden: RTL
+read design \
+    ../i2c_syn_tech/i2c_master_bit_ctrl.sv \
+    ../i2c_syn_tech/i2c_master_byte_ctrl.sv \
+    ../i2c_syn_tech/i2c_master_top.sv \
+    -SYS -Golden -continuousassignment Bidirectional \
+    -nokeep_unreach -norangeconstraint -NOE
+
+elaborate design
+
+// Revised: synthesized netlist
+read design ./i2c_master_top_syn_lec.v \
+    -Verilog -Revised -sensitive \
+    -continuousassignment Bidirectional \
+    -nokeep_unreach -nosupply
+
+Set flatten model -gated_clock
+
+// Use vsdc to understand synthesis transformations
+read setup information compile.vsdc -type vsdc
+uniquify -all
+
+// Write hierarchical dofile
+write hier_compare dofile hier.do -replace \
+    -prepend_string "analyze datapath -module -threads 4 ; analyze datapath -wordlevel -verbose" \
+    -usage
+
+set compare effort low
+run hier_compare hier.do
+
+set log file

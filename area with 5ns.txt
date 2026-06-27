@@ -1,0 +1,28 @@
+****************************************
+Report : area
+Design : i2c_master_top
+Version: U-2022.12
+Date   : Wed Jun 17 21:46:14 2026
+****************************************
+
+Library(s) Used:
+
+    tsl18fs120_typ (File: /tools/kits/tower/PDK_TS18SL/FS120_STD_Cells_0_18um_2005_12/DW_TOWER_tsl18fs120/2005.12/synopsys/2004.12/models/tsl18fs120_typ.db)
+
+Number of ports:                          185
+Number of nets:                           730
+Number of cells:                          561
+Number of combinational cells:            400
+Number of sequential cells:               153
+Number of macros/black boxes:               0
+Number of buf/inv:                        103
+Number of references:                      21
+
+Combinational area:                530.500000
+Buf/Inv area:                       59.000000
+Noncombinational area:             885.500000
+Macro/Black Box area:                0.000000
+Net Interconnect area:             404.023233
+
+Total cell area:                  1416.000000
+Total area:                       1820.023233

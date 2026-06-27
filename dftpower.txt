@@ -1,0 +1,64 @@
+****************************************
+Report : power
+        -analysis_effort low
+Design : i2c_master_top
+Version: U-2022.12
+Date   : Sat Jun 27 15:07:16 2026
+****************************************
+
+
+Library(s) Used:
+
+    tsl18fs120_typ (File: /tools/kits/tower/PDK_TS18SL/FS120_STD_Cells_0_18um_2005_12/DW_TOWER_tsl18fs120/2005.12/synopsys/2004.12/models/tsl18fs120_typ.db)
+
+
+Operating Conditions: tsl18fs120_typ   Library: tsl18fs120_typ
+Wire Load Model Mode: enclosed
+
+Design        Wire Load Model            Library
+------------------------------------------------
+i2c_master_top         4000              tsl18fs120_typ
+i2c_master_bit_ctrl_DW01_dec_0_DW01_dec_1
+                       ForQA             tsl18fs120_typ
+i2c_master_bit_ctrl_DW01_dec_1_DW01_dec_2
+                       ForQA             tsl18fs120_typ
+i2c_master_byte_ctrl_test_1
+                       4000              tsl18fs120_typ
+i2c_master_bit_ctrl_test_1
+                       4000              tsl18fs120_typ
+
+
+Global Operating Voltage = 1.8  
+Power-specific unit information :
+    Voltage Units = 1V
+    Capacitance Units = 1.000000pf
+    Time Units = 1ns
+    Dynamic Power Units = 1mW    (derived from V,C,T units)
+    Leakage Power Units = 1pW
+
+
+Attributes
+----------
+i - Including register clock pin internal power
+
+
+  Cell Internal Power  =   1.5484 mW   (93%)
+  Net Switching Power  = 113.5287 uW    (7%)
+                         ---------
+Total Dynamic Power    =   1.6619 mW  (100%)
+
+Cell Leakage Power     =  44.1820 nW
+
+
+                 Internal         Switching           Leakage            Total
+Power Group      Power            Power               Power              Power   (   %    )  Attrs
+--------------------------------------------------------------------------------------------------
+io_pad             0.0000            0.0000            0.0000            0.0000  (   0.00%)
+memory             0.0000            0.0000            0.0000            0.0000  (   0.00%)
+black_box          0.0000            0.0000            0.0000            0.0000  (   0.00%)
+clock_network      1.3274            0.0000            0.0000            1.3274  (  79.87%)  i
+register           0.1814        2.9973e-02        3.5142e+04            0.2114  (  12.72%)
+sequential         0.0000            0.0000            0.0000            0.0000  (   0.00%)
+combinational  3.9679e-02        8.3556e-02        9.0403e+03            0.1232  (   7.42%)
+--------------------------------------------------------------------------------------------------
+Total              1.5484 mW         0.1135 mW     4.4182e+04 pW         1.6620 mW

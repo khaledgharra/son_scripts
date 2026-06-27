@@ -1,0 +1,91 @@
+****************************************
+Report : timing
+        -path full
+        -delay max
+        -max_paths 1
+        -sort_by group
+Design : i2c_master_top
+Version: U-2022.12
+Date   : Sat Jun 27 15:04:55 2026
+****************************************
+
+Operating Conditions: tsl18fs120_typ   Library: tsl18fs120_typ
+Wire Load Model Mode: enclosed
+
+  Startpoint: byte_controller/bit_controller/cnt_reg[0]
+              (rising edge-triggered flip-flop clocked by wb_clk_i)
+  Endpoint: byte_controller/bit_controller/cnt_reg[15]
+            (rising edge-triggered flip-flop clocked by wb_clk_i)
+  Path Group: wb_clk_i
+  Path Type: max
+
+  Des/Clust/Port     Wire Load Model       Library
+  ------------------------------------------------
+  i2c_master_top     4000                  tsl18fs120_typ
+  i2c_master_bit_ctrl_test_1
+                     4000                  tsl18fs120_typ
+  i2c_master_bit_ctrl_DW01_dec_1_DW01_dec_2
+                     ForQA                 tsl18fs120_typ
+
+  Point                                                   Incr       Path
+  --------------------------------------------------------------------------
+  clock wb_clk_i (rise edge)                              0.00       0.00
+  clock network delay (ideal)                             0.00       0.00
+  byte_controller/bit_controller/cnt_reg[0]/CP (sdcrq1)
+                                                          0.00       0.00 r
+  byte_controller/bit_controller/cnt_reg[0]/Q (sdcrq1)
+                                                          0.36       0.36 r
+  byte_controller/bit_controller/sub_228/A[0] (i2c_master_bit_ctrl_DW01_dec_1_DW01_dec_2)
+                                                          0.00       0.36 r
+  byte_controller/bit_controller/sub_228/U32/Z (or02d0)
+                                                          0.36       0.71 r
+  byte_controller/bit_controller/sub_228/U31/Z (or02d0)
+                                                          0.36       1.07 r
+  byte_controller/bit_controller/sub_228/U30/Z (or02d0)
+                                                          0.36       1.42 r
+  byte_controller/bit_controller/sub_228/U29/Z (or02d0)
+                                                          0.36       1.78 r
+  byte_controller/bit_controller/sub_228/U28/Z (or02d0)
+                                                          0.36       2.13 r
+  byte_controller/bit_controller/sub_228/U27/Z (or02d0)
+                                                          0.36       2.49 r
+  byte_controller/bit_controller/sub_228/U26/Z (or02d0)
+                                                          0.36       2.84 r
+  byte_controller/bit_controller/sub_228/U25/Z (or02d0)
+                                                          0.37       3.22 r
+  byte_controller/bit_controller/sub_228/U3/ZN (nr02d1)
+                                                          0.21       3.43 f
+  byte_controller/bit_controller/sub_228/U1/ZN (nd02d1)
+                                                          0.22       3.65 r
+  byte_controller/bit_controller/sub_228/U21/Z (or02d0)
+                                                          0.35       3.99 r
+  byte_controller/bit_controller/sub_228/U19/Z (or02d0)
+                                                          0.37       4.37 r
+  byte_controller/bit_controller/sub_228/U14/ZN (nr02d1)
+                                                          0.17       4.54 f
+  byte_controller/bit_controller/sub_228/U2/ZN (inv0d0)
+                                                          0.27       4.81 r
+  byte_controller/bit_controller/sub_228/U17/ZN (nr02d1)
+                                                          0.07       4.88 f
+  byte_controller/bit_controller/sub_228/U13/Z (xr02d1)
+                                                          0.20       5.08 f
+  byte_controller/bit_controller/sub_228/SUM[15] (i2c_master_bit_ctrl_DW01_dec_1_DW01_dec_2)
+                                                          0.00       5.08 f
+  byte_controller/bit_controller/U86/Z (aor222d1)         0.30       5.38 f
+  byte_controller/bit_controller/cnt_reg[15]/D (sdcrq1)
+                                                          0.00       5.38 f
+  data arrival time                                                  5.38
+
+  clock wb_clk_i (rise edge)                             10.00      10.00
+  clock network delay (ideal)                             0.00      10.00
+  byte_controller/bit_controller/cnt_reg[15]/CP (sdcrq1)
+                                                          0.00      10.00 r
+  library setup time                                     -0.23       9.77
+  data required time                                                 9.77
+  --------------------------------------------------------------------------
+  data required time                                                 9.77
+  data arrival time                                                 -5.38
+  --------------------------------------------------------------------------
+  slack (MET)                                                        4.39
+
+

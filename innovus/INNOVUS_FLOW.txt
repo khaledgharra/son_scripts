@@ -33,6 +33,7 @@
 
 8. Route all nets:
    setNanoRouteMode -routeWithTimingDriven false -routeWithSiDriven false
+   setNanoRouteMode -drouteFixAntenna true
    routeDesign
    (timing slack is +0.127ns so we can trade timing freedom for DRC quality)
 

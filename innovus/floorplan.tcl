@@ -12,9 +12,8 @@ source glnets.src
 deselectAll
 
 puts "=== STEP 3: Add power ring ==="
-# M5 top/bottom: M5 is H-preferred → horizontal ring segments match M5 direction
-# M4 left/right:  M4 is V-preferred → vertical ring segments match M4 direction
-# No TOP_M used anywhere → avoids IO pad TOP_M bus bar conflicts
+# M5 top/bottom (horizontal), M4 left/right (vertical)
+# TOP_M avoided — conflicts with IO pad bus bars
 setAddRingMode \
     -ring_target default \
     -extend_over_row 0 \
@@ -38,19 +37,25 @@ addRing \
     -threshold 0.56
 
 puts "=== STEP 4: Add vertical power stripes (M4) ==="
-# M4 V stripes connect at top/bottom to M5 ring via M4→M5 vias (no TOP_M)
+# ybottom/ytop_offset keeps stripes inside core boundary (avoids pad cell blockages)
 addStripe \
     -nets {VDD VSS} \
     -layer M4 \
     -direction vertical \
-    -width 6 \
+    -width 4 \
     -spacing 1.8 \
     -set_to_set_distance 100 \
     -start_from left \
     -stacked_via_top_layer M5 \
-    -stacked_via_bottom_layer M1
+    -stacked_via_bottom_layer M4 \
+    -ybottom_offset 75.04 \
+    -ytop_offset 75.04
 
 puts "=== STEP 5: Route power to standard cell pins ==="
+# padPinLayerRange prevents sroute from using TOP_M to connect IO pad power pins
+setSrouteMode \
+    -padPinLayerRange {M1 M5} \
+    -padPinTarget nearestTarget
 sroute \
     -connect { corePin padRing } \
     -layerChangeRange { M1 M5 } \
@@ -58,5 +63,16 @@ sroute \
     -padPinPortConnect { allPort } \
     -nets { VDD VSS }
 
+puts "=== STEP 6: Routing blockages — keep signals out of pad ring area ==="
+# Prevent signal router from using M3-M5 inside the 75um pad ring margins
+createRouteBlk -layer {M3 M4 M5} \
+    -box 0 0 1799.84 75.04 -name blk_bot
+createRouteBlk -layer {M3 M4 M5} \
+    -box 0 1724.80 1799.84 1799.84 -name blk_top
+createRouteBlk -layer {M3 M4 M5} \
+    -box 0 0 75.60 1799.84 -name blk_left
+createRouteBlk -layer {M3 M4 M5} \
+    -box 1724.24 0 1799.84 1799.84 -name blk_right
+
 puts "=== Floorplan + Power Planning DONE ==="
-puts "Next: placeDesign, then routeDesign"
+puts "Next: placeDesign, source cts.tcl, then routeDesign"
